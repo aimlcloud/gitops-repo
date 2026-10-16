@@ -1,5 +1,5 @@
 REPO STRUCTURE:
-
+```
 gitops-repo/
 ├── clusters/
 │   ├── rke2-prod/
@@ -15,7 +15,7 @@ gitops-repo/
 │   │   ├── values/              # Helm values files per tool
 │   │   └── apps-of-apps.yaml    # Master Argo CD Application
 
-
+```
 Bootstrap Process
 
 Networking (Wave 0) → Calico, CoreDNS, MetalLB
