@@ -1,0 +1,20 @@
+# Calico values.yaml
+installation:
+  kubernetesProvider: "rke2"
+  cni:
+    type: Calico
+  calicoNetwork:
+    ipPools:
+      - cidr: 10.42.0.0/16   # match your cluster pod CIDR
+        encapsulation: VXLANCrossSubnet
+        natOutgoing: Enabled
+        nodeSelector: all()
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+

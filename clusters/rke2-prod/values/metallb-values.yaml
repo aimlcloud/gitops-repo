@@ -1,0 +1,26 @@
+# MetalLB values.yaml
+controller:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+speaker:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+configInline:
+  address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+        - 192.168.1.240-192.168.1.250   # adjust to your LAN range
+
