@@ -1,0 +1,5 @@
+defaultSettings:
+  defaultReplicaCount: 2
+  backupTarget: s3://longhorn-backups@minio/
+  backupTargetCredentialSecret: minio-secret
+

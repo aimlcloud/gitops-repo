@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: audit-logs
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+spec:
+  project: default
+  source:
+    repoURL: https://example-audit-logs-charts.io   # replace with actual repo
+    chart: audit-logs
+    targetRevision: 1.0.0
+    helm:
+      valueFiles:
+        - ../../values/audit-logs-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: audit
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+

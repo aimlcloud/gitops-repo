@@ -1,0 +1,28 @@
+deployment:
+  replicas: 2
+
+ports:
+  web:
+    redirectTo: websecure
+  websecure:
+    tls:
+      enabled: true
+
+providers:
+  kubernetesIngress:
+    publishedService:
+      enabled: true
+  kubernetesCRD: {}
+
+ingressRoute:
+  dashboard:
+    enabled: true
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@example.com
+      storage: /data/acme.json
+      httpChallenge:
+        entryPoint: web
+

@@ -1,0 +1,16 @@
+replicas: 2
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+postgresql:
+  enabled: true
+  postgresqlUsername: keycloak
+  postgresqlPassword: keycloakpass
+  postgresqlDatabase: keycloakdb
+

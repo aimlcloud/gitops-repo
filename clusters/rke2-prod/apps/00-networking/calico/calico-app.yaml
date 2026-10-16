@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: calico
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: default
+  source:
+    repoURL: https://projectcalico.docs.tigera.io/charts
+    chart: tigera-operator
+    targetRevision: 3.27.3
+    helm:
+      valueFiles:
+        - ../../values/calico-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: calico-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
