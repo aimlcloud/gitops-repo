@@ -1,0 +1,86 @@
+{
+  "id": null,
+  "title": "Cluster Overview",
+  "tags": ["kubernetes", "cluster", "overview"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "API Server Status",
+      "targets": [
+        {
+          "expr": "up{job=\"apiserver\"}",
+          "legendFormat": "API Server"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "stat",
+      "title": "Etcd Quorum",
+      "targets": [
+        {
+          "expr": "etcd_server_quorum_failure",
+          "legendFormat": "Etcd Quorum Failure"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "stat",
+      "title": "Scheduler Status",
+      "targets": [
+        {
+          "expr": "up{job=\"kube-scheduler\"}",
+          "legendFormat": "Scheduler"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Cluster CPU Usage",
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total[5m]))",
+          "legendFormat": "CPU Usage"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Cluster Memory Usage",
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes)",
+          "legendFormat": "Memory Usage"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Pod Count by Phase",
+      "targets": [
+        {
+          "expr": "count(kube_pod_status_phase{phase=\"Running\"})",
+          "legendFormat": "Running"
+        },
+        {
+          "expr": "count(kube_pod_status_phase{phase=\"Pending\"})",
+          "legendFormat": "Pending"
+        },
+        {
+          "expr": "count(kube_pod_status_phase{phase=\"Failed\"})",
+          "legendFormat": "Failed"
+        }
+      ],
+      "datasource": "Prometheus"
+    }
+  ]
+}
+

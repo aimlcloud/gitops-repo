@@ -17,6 +17,12 @@ prometheus:
             requests:
               storage: 50Gi
           storageClassName: longhorn
+    # 👇 Add this to auto‑discover all rule files with label role=alert-rules
+    ruleSelector:
+      matchLabels:
+        role: alert-rules
+    ruleNamespaceSelector: {}
+    ruleNamespace: "monitoring"
 
 alertmanager:
   alertmanagerSpec:
@@ -28,4 +34,7 @@ alertmanager:
       limits:
         cpu: 500m
         memory: 1Gi
+    # 👇 Reference your Alertmanager config ConfigMap
+    configMaps:
+      - alertmanager-config
 

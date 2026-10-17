@@ -1,0 +1,56 @@
+{
+  "id": null,
+  "title": "Network Health Overview",
+  "tags": ["kubernetes", "network", "health"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Transmit Errors",
+      "targets": [
+        {
+          "expr": "rate(node_network_transmit_errs_total[5m])",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Receive Errors",
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_errs_total[5m])",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Packet Loss",
+      "targets": [
+        {
+          "expr": "rate(node_network_receive_errs_total[5m])",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Bandwidth Usage",
+      "targets": [
+        {
+          "expr": "(rate(node_network_transmit_bytes_total[5m]) + rate(node_network_receive_bytes_total[5m])) / node_network_speed_bytes",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    }
+  ]
+}
+

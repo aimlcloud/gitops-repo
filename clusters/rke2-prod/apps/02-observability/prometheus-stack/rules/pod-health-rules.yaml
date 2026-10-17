@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-health-rules
+  namespace: monitoring
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: pod-health
+    rules:
+    - alert: PodCrashLooping
+      expr: increase(kube_pod_container_status_restarts_total[10m]) > 5
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Pod {{ $labels.pod }} restarting frequently"
+        description: "Container restarted more than 5 times in 10 minutes."
+
+    - alert: PodOOMKilled
+      expr: kube_pod_container_status_last_terminated_reason == "OOMKilled"
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Pod {{ $labels.pod }} OOMKilled"
+        description: "Container terminated due to out-of-memory."
+
+    - alert: PodPendingTooLong
+      expr: kube_pod_status_phase{phase="Pending"} > 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Pod {{ $labels.pod }} pending too long"
+        description: "Pod has been pending for more than 15 minutes."
+

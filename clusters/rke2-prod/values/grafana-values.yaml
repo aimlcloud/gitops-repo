@@ -22,3 +22,8 @@ datasources:
         url: http://loki:3100
         access: proxy
 
+dashboardsProvider:
+  enabled: true
+  configMaps:
+    - grafana-dashboards
+

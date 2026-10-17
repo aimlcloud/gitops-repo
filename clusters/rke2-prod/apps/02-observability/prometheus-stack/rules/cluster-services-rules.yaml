@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cluster-services-rules
+  namespace: monitoring
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: cluster-services
+    rules:
+    - alert: APIServerDown
+      expr: up{job="apiserver"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Kubernetes API server down"
+        description: "No scrape data from API server."
+
+    - alert: EtcdQuorumLoss
+      expr: etcd_server_quorum_failure == 1
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Etcd quorum lost"
+        description: "Etcd cluster has lost quorum."
+
+    - alert: SchedulerDown
+      expr: up{job="kube-scheduler"} == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Kubernetes scheduler down"
+        description: "No scrape data from scheduler."
+

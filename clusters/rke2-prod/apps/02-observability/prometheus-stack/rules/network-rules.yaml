@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: network-rules
+  namespace: monitoring
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: network-health
+    rules:
+    - alert: HighNetworkLatency
+      expr: rate(node_network_transmit_errs_total[5m]) > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: "High network errors on {{ $labels.instance }}"
+        description: "Transmit errors detected on network interface."
+
+    - alert: PacketLossDetected
+      expr: rate(node_network_receive_errs_total[5m]) > 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "Packet loss on {{ $labels.instance }}"
+        description: "Receive errors detected on network interface."
+
+    - alert: NetworkSaturation
+      expr: (rate(node_network_transmit_bytes_total[5m]) + rate(node_network_receive_bytes_total[5m])) / node_network_speed_bytes > 0.9
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: "Network saturation on {{ $labels.instance }}"
+        description: "Interface bandwidth usage >90% for 10 minutes."
+

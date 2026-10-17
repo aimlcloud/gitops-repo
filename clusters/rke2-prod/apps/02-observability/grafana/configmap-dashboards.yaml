@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  cluster-overview.json: |
+    {{ .Files.Get "apps/02-observability/grafana/dashboards/cluster-overview.json" }}
+  node-health.json: |
+    {{ .Files.Get "apps/02-observability/grafana/dashboards/node-health.json" }}
+  pod-health.json: |
+    {{ .Files.Get "apps/02-observability/grafana/dashboards/pod-health.json" }}
+  storage-health.json: |
+    {{ .Files.Get "apps/02-observability/grafana/dashboards/storage-health.json" }}
+  network-health.json: |
+    {{ .Files.Get "apps/02-observability/grafana/dashboards/network-health.json" }}
+

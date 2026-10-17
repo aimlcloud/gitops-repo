@@ -1,0 +1,67 @@
+{
+  "id": null,
+  "title": "Node Health Overview",
+  "tags": ["kubernetes", "nodes", "health"],
+  "timezone": "browser",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Node Availability",
+      "targets": [
+        {
+          "expr": "up{job=\"node-exporter\"}",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "CPU Usage per Node",
+      "targets": [
+        {
+          "expr": "avg(rate(node_cpu_seconds_total{mode!=\"idle\"}[5m])) by (instance)",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Memory Usage per Node",
+      "targets": [
+        {
+          "expr": "(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Disk Space Usage",
+      "targets": [
+        {
+          "expr": "1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    },
+    {
+      "type": "graph",
+      "title": "Disk IO Saturation",
+      "targets": [
+        {
+          "expr": "rate(node_disk_io_time_seconds_total[5m])",
+          "legendFormat": "{{instance}}"
+        }
+      ],
+      "datasource": "Prometheus"
+    }
+  ]
+}
+
