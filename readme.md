@@ -44,7 +44,7 @@ Upgrade → Update the targetRevision (chart version) in the Application manifes
 
 Delete → Remove the Application manifest from apps/ or disable it in apps-of-apps.yaml. Argo CD will prune resources.
 
-Ignore → If a tool is not required (e.g., you don’t want kube-bench in prod), simply don’t include its Application manifest in apps/ or comment it out in apps-of-apps.yaml.
+Ignore → If a tool is not required  (e.g., you don’t want kube-bench in prod), simply don’t include its Application manifest in apps/ or comment it out in apps-of-apps.yaml.
 
 Argo CD will skip it.
 
@@ -70,6 +70,22 @@ GET STARTED
 kubectl create namespace argocd
 
 kubectl apply -f clusters/rke2-prod/apps-of-apps.yaml -n argocd
+
+Argocd cli install steps :
+
+# Download the latest release
+
+wget https://github.com/argoproj/argo-cd/releases/download/v3.5.6/argocd-linux-amd64
+
+# Move it into your PATH
+
+sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+
+sudo chmod +x /usr/local/bin/argocd
+
+# Verify
+
+argocd version
 
 
 
