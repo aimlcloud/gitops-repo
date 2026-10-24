@@ -71,6 +71,22 @@ kubectl create namespace argocd
 
 kubectl apply -f clusters/rke2-prod/apps-of-apps.yaml -n argocd
 
+Argocd cli install steps :
+
+# Download the latest release
+
+wget https://github.com/argoproj/argo-cd/releases/download/v3.5.6/argocd-linux-amd64
+
+# Move it into your PATH
+
+sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+
+sudo chmod +x /usr/local/bin/argocd
+
+# Verify
+
+argocd version
+
 
 
 
