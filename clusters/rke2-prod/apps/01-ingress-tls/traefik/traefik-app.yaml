@@ -13,7 +13,7 @@ spec:
     targetRevision: 26.0.0   # stable version compatible with k8s v1.36
     helm:
       valueFiles:
-        - ../../values/traefik-values.yaml
+        - clusters/rke2-prod/values/traefik-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik

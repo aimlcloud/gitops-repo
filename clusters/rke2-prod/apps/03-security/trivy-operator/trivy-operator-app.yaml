@@ -13,7 +13,7 @@ spec:
     targetRevision: 0.21.2
     helm:
       valueFiles:
-        - ../../values/trivy-operator-values.yaml
+        - clusters/rke2-prod/values/trivy-operator-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: trivy-system

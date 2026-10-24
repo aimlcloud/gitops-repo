@@ -13,7 +13,7 @@ spec:
     targetRevision: 3.10.0
     helm:
       valueFiles:
-        - ../../values/falco-values.yaml
+        - clusters/rke2-prod/values/falco-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: falco

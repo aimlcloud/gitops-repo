@@ -13,7 +13,7 @@ spec:
     targetRevision: 1.39.0
     helm:
       valueFiles:
-        - ../../values/coredns-values.yaml
+        - clusters/rke2-prod/values/coredns-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system

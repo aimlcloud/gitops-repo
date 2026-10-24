@@ -13,7 +13,7 @@ spec:
     targetRevision: 3.1.0
     helm:
       valueFiles:
-        - ../../values/kyverno-values.yaml
+        - clusters/rke2-prod/values/kyverno-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
