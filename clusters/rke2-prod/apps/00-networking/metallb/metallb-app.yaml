@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://metallb.github.io/metallb
+    repoURL: https://charts.bitnami.com/bitnami
     chart: metallb
-    targetRevision: 0.15.2
+    targetRevision: 6.4.22
     helm:
       valueFiles:
         - clusters/rke2-prod/values/metallb-values.yaml
