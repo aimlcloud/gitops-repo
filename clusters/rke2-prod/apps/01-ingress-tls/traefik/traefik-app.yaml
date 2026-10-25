@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 26.0.0   # stable version compatible with k8s v1.36
+    targetRevision: 37.1.1   # stable version compatible with k8s v1.36
     helm:
       valueFiles:
         - clusters/rke2-prod/values/traefik-values.yaml

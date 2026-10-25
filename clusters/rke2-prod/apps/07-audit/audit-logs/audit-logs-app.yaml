@@ -7,18 +7,24 @@ metadata:
     argocd.argoproj.io/sync-wave: "7"
 spec:
   project: default
+
   source:
-    repoURL: https://example-audit-logs-charts.io   # replace with actual repo
-    chart: audit-logs
-    targetRevision: 1.0.0
+    repoURL: https://grafana.github.io/helm-charts
+    chart: k8s-monitoring
+    targetRevision: 4.1.3
     helm:
       valueFiles:
-        - ../../values/audit-logs-values.yaml
+        - clusters/rke2-prod/values/audit-logs-values.yaml
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: audit
+    namespace: monitoring
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

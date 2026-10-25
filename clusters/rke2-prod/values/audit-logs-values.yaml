@@ -1,3 +1,9 @@
+cluster:
+  name: prod-cluster
+
+auditLogs:
+  enabled: false
+
 replicaCount: 2
 
 resources:
@@ -14,4 +20,3 @@ persistence:
 
 retention:
   days: 30
-

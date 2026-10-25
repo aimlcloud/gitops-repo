@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://codecentric.github.io/helm-charts
     chart: keycloak
-    targetRevision: 22.0.0
+    targetRevision: 24.4.11
     helm:
       valueFiles:
         - ../../values/keycloak-values.yaml
