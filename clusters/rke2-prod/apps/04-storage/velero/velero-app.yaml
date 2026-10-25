@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://vmware-tanzu.github.io/helm-charts
     chart: velero
-    targetRevision: 10.1.0
+    targetRevision: 12.2.1
     helm:
       valueFiles:
-        - ../../values/velero-values.yaml
+        - clusters/rke2-prod/values/velero-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: velero

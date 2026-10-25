@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://charts.longhorn.io
     chart: longhorn
-    targetRevision: 1.10.0
+    targetRevision: 1.13.0
     helm:
       valueFiles:
-        - ../../values/longhorn-values.yaml
+        - clusters/rke2-prod/values/longhorn-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system

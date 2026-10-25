@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://codecentric.github.io/helm-charts
     chart: keycloak
-    targetRevision: 24.4.11
+    targetRevision: 25.2.0
     helm:
       valueFiles:
-        - ../../values/keycloak-values.yaml
+        - clusters/rke2-prod/values/keycloak-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak

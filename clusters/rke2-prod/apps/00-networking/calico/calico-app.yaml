@@ -10,7 +10,7 @@ spec:
   source:
     repoURL:  https://docs.tigera.io/calico/charts
     chart: tigera-operator
-    targetRevision: 3.31.0
+    targetRevision: v3.31.7
     helm:
       valueFiles:
         - clusters/rke2-prod/values/calico-values.yaml

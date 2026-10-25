@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-cd
-    targetRevision: 8.3.5
+    targetRevision: 10.11.1
     helm:
       valueFiles:
-        - ../../values/argocd-values.yaml
+        - clusters/rke2-prod/values/argocd-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
