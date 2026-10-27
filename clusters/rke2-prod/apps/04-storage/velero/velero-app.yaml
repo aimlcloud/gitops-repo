@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "4"
+
 spec:
   project: default
-  source:
-    repoURL: https://vmware-tanzu.github.io/helm-charts
-    chart: velero
-    targetRevision: 12.2.1
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/velero-values.yaml
+
+  sources:
+    - repoURL: https://vmware-tanzu.github.io/helm-charts
+      chart: velero
+      targetRevision: 12.2.1
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/velero-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: velero
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true

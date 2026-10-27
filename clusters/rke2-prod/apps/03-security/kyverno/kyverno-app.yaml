@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+
 spec:
   project: default
-  source:
-    repoURL: https://kyverno.github.io/kyverno/
-    chart: kyverno
-    targetRevision: 3.9.2
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/kyverno-values.yaml
+
+  sources:
+    - repoURL: https://kyverno.github.io/kyverno/
+      chart: kyverno
+      targetRevision: 3.9.2
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/kyverno-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: kyverno
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true

@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+
 spec:
   project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: metallb
-    targetRevision: 6.4.22
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/metallb-values.yaml
+
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: metallb
+      targetRevision: 6.4.22
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/metallb-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: metallb-system
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true

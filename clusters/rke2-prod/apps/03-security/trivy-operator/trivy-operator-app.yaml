@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+
 spec:
   project: default
-  source:
-    repoURL: https://aquasecurity.github.io/helm-charts/
-    chart: trivy-operator
-    targetRevision: 0.37.0
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/trivy-operator-values.yaml
+
+  sources:
+    - repoURL: https://aquasecurity.github.io/helm-charts/
+      chart: trivy-operator
+      targetRevision: 0.37.0
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/trivy-operator-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: trivy-system
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true

@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "0"
+
 spec:
   project: default
-  source:
-    repoURL:  https://docs.tigera.io/calico/charts
-    chart: tigera-operator
-    targetRevision: v3.31.7
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/calico-values.yaml
+
+  sources:
+    - repoURL: https://docs.tigera.io/calico/charts
+      chart: tigera-operator
+      targetRevision: v3.31.7
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/calico-values.yaml
+
+    - repoURL: https://github.com/YOUR_ORG/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: calico-system
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true

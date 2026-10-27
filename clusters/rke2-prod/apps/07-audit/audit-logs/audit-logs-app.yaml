@@ -5,16 +5,21 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "7"
+
 spec:
   project: default
 
-  source:
-    repoURL: https://grafana.github.io/helm-charts
-    chart: k8s-monitoring
-    targetRevision: 4.5.5
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/audit-logs-values.yaml
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: k8s-monitoring
+      targetRevision: 4.5.5
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/audit-logs-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
 
   destination:
     server: https://kubernetes.default.svc
@@ -28,3 +33,4 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+

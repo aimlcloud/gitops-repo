@@ -5,20 +5,30 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+
 spec:
   project: default
-  source:
-    repoURL: https://falcosecurity.github.io/charts
-    chart: falco
-    targetRevision: 9.2.1
-    helm:
-      valueFiles:
-        - clusters/rke2-prod/values/falco-values.yaml
+
+  sources:
+    - repoURL: https://falcosecurity.github.io/charts
+      chart: falco
+      targetRevision: 9.2.1
+      helm:
+        valueFiles:
+          - $values/clusters/rke2-prod/values/falco-values.yaml
+
+    - repoURL: https://github.com/aimlcloud/gitops-repo.git
+      targetRevision: main
+      ref: values
+
   destination:
     server: https://kubernetes.default.svc
     namespace: falco
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
 
+    syncOptions:
+      - CreateNamespace=true
