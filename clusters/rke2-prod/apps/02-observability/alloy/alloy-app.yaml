@@ -13,9 +13,9 @@ spec:
     - repoURL: https://grafana.github.io/helm-charts
       chart: alloy
       targetRevision: 1.14.3
-      helm:
-        valueFiles:
-          - $values/clusters/rke2-prod/values/alloy-values.yaml
+      #helm:
+        #valueFiles:
+          #- $values/clusters/rke2-prod/values/alloy-values.yaml
 
     - repoURL: https://github.com/aimlcloud/gitops-repo.git
       targetRevision: main
